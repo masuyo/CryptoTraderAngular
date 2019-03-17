@@ -6,10 +6,10 @@ import { CurrencyListComponent } from './currency-list/currency-list.component';
 
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'currency-list'},
-  { path: 'list-currencies', component: CurrencyListComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'currencies-list'},
+  { path: 'currencies-list', component: CurrencyListComponent },
   { path: 'buy-currency', component: CurrencyBuyComponent },
-  { path: 'list-currencies', component: CurrencySellComponent },
+  { path: 'sell-currency', component: CurrencySellComponent },
 ];
 
 @NgModule({

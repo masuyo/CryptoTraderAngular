@@ -1,3 +1,17 @@
-<p>
-  currency-list works!
-</p>
+<div *ngIf="Currencies.length !== 0"></div>
+<h3>Currency List</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Symbol</th>
+      <th scope="col">CurrentRate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let currency of Currencies">
+      <td>{{currency.symbol}}</td>
+      <td>{{currency.currentRate}}</td>
+    </tr>
+  </tbody>
+</table>

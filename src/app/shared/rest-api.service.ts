@@ -20,8 +20,8 @@ export class RestApiService {
     })
   }
 
-  getExchangeRate(currencyName: string): Observable<Currency> {
-    return this.http.get<Currency>(this.apiURL + '/exchange/' + currencyName)
+  getExchangeRate(currencyName): Observable<Currency> {
+    return this.http.get<Currency>(this.apiURL + '/exchange/' + currencyName, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

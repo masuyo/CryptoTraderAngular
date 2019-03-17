@@ -18,11 +18,10 @@ import { CurrencyListComponent } from './currency-list/currency-list.component';
     CurrencyListComponent
   ],
   imports: [
-    BrowserModule,
-    NgModule,
-    FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
 export class Currency {
     symbol: string;
-    currentRate: number
+    currentRate: number;
 }
