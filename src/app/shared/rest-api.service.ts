@@ -54,7 +54,8 @@ export class RestApiService {
   }
 
   reset() {
-    return this.http.post(this.apiURL + '/account/reset', this.httpOptions)
+    var data = JSON.stringify(false);
+    return this.http.post(this.apiURL + '/account/reset', data, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
