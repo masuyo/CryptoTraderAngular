@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 // Components
 import { CurrencyListComponent } from './currency-list/currency-list.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CurrencyListComponent,
-    TradeHistoryComponent
+    TradeHistoryComponent,
+    AccountComponent
   ],
   imports: [
     AppRoutingModule,

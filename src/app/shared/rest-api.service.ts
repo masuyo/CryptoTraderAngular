@@ -53,6 +53,14 @@ export class RestApiService {
     )
   }
 
+  reset() {
+    return this.http.post(this.apiURL + '/account/reset', this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);

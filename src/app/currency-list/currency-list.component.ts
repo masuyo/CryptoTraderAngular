@@ -30,6 +30,6 @@ export class CurrencyListComponent implements OnInit {
   pushCurrencyBySymbol(symbol) {
     this.restApi.getExchangeRate(symbol).subscribe((data: {}) => {
       this.Currencies.push(data);
-    })
+    });
   }
 }
