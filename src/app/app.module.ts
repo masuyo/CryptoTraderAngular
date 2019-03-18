@@ -6,16 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Components
-import { CurrencyBuyComponent } from './currency-buy/currency-buy.component';
-import { CurrencySellComponent } from './currency-sell/currency-sell.component';
 import { CurrencyListComponent } from './currency-list/currency-list.component';
+import { TradeHistoryComponent } from './trade-history/trade-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CurrencyBuyComponent,
-    CurrencySellComponent,
-    CurrencyListComponent
+    CurrencyListComponent,
+    TradeHistoryComponent
   ],
   imports: [
     AppRoutingModule,
