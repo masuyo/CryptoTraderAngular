@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RestApiService } from "../shared/rest-api.service";
+import { RestApiService } from '../shared/rest-api.service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,14 +11,19 @@ import { Observable } from 'rxjs';
 export class AccountComponent implements OnInit {
 
   constructor(
-    public restApi: RestApiService
+    public restApi: RestApiService,
+    public router: Router
   ) {}
 
   ngOnInit() {
   }
 
   resetAccount() {
-    this.restApi.reset().subscribe();
+    if (window.confirm('Biztosan resetelni szeretnéd az accountod?')) {
+      this.restApi.reset().subscribe(() => {
+        this.router.navigate(['/account']);
+      });
+    }
   }
 
 }
