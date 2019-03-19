@@ -12,11 +12,11 @@
           </thead>
           <tbody>
               <tr *ngFor="let transaction of Transactions">
-                  <td>{{transaction.type}}</td>
-                  <td>{{transaction.symbol}}</td>
-                  <td>{{transaction.amount}}</td>
-                  <td>{{transaction.createdAt}}</td>
-                </tr>
+                <td *ngIf="transaction.type !== 'Reset'">{{transaction.type}}</td>
+                <td *ngIf="transaction.type !== 'Reset'">{{transaction.symbol}}</td>
+                <td *ngIf="transaction.type !== 'Reset'">{{transaction.amount}}</td>
+                <td *ngIf="transaction.type !== 'Reset'">{{transaction.createdAt}}</td>
+              </tr>
           </tbody>
       </table>
   </div>
