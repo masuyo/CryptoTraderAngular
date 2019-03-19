@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RestApiService } from "../shared/rest-api.service";
+import { RestApiService } from '../shared/rest-api.service';
 import { Currency } from '../shared/currency';
 import { Observable } from 'rxjs';
 
@@ -17,7 +17,7 @@ export class TradeHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadTransactions()
+    this.loadTransactions();
   }
 
   loadTransactions() {

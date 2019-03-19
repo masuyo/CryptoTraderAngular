@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Currency } from '../shared/currency';
+import { Balance } from '../shared/balance';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Transaction } from './transaction';
@@ -12,29 +13,30 @@ export class RestApiService {
 
   apiURL = 'https://obudai-api.azurewebsites.net/api';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':'application/json',
+      'Content-Type': 'application/json',
       'X-Access-Token': '3D2ADF61-84D2-42A2-A715-A207B67A8CD8'
     })
   }
 
-  getExchangeRate(currencyName): Observable<Currency> {
-    return this.http.get<Currency>(this.apiURL + '/exchange/' + currencyName, this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
+  getExchangeRate(symbol): Observable<Currency> {
+    return this.http.get<Currency>(this.apiURL + '/exchange/' + symbol, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      );
   }
 
-  getBalance(): Observable<number> {
-    return this.http.get<number>(this.apiURL + '/account', this.httpOptions)
+  getBalance(): Observable<Balance> {
+    return this.http.get<Balance>(this.apiURL + '/account', this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
   }
 
   getHistory(): Observable<Transaction> {
@@ -42,24 +44,42 @@ export class RestApiService {
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
   }
 
-  purchase(currency, rate): Observable<Currency> {
-    return this.http.post<Currency>(this.apiURL + '/account/purchase', this.httpOptions)
+  purchase(symbol, amount) {
+    const data = JSON.stringify({
+      'symbol': symbol,
+      'amount': amount
+    });
+
+    return this.http.post<Currency>(this.apiURL + '/account/purchase', data, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
+  }
+
+  sell(symbol, amount) {
+    const data = JSON.stringify({
+      'symbol': symbol,
+      'amount': amount
+    });
+
+    return this.http.post<Currency>(this.apiURL + '/account/sell', data, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
   }
 
   reset() {
-    var data = JSON.stringify(false);
+    const data = JSON.stringify(false);
     return this.http.post(this.apiURL + '/account/reset', data, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
-    )
+    );
   }
 
   private handleError(error: any): Promise<any> {

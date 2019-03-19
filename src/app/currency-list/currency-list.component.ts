@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RestApiService } from "../shared/rest-api.service";
-import { Currency } from '../shared/currency';
-import { Observable } from 'rxjs';
+import { RestApiService } from '../shared/rest-api.service';
 
 @Component({
   selector: 'app-currency-list',
@@ -11,19 +9,27 @@ import { Observable } from 'rxjs';
 export class CurrencyListComponent implements OnInit {
 
   Currencies: any = [];
-  symbols: any = ["btc", "xrp", "eth"];
+  Symbols: any = ['btc', 'xrp', 'eth'];
+  Balance: any;
 
   constructor(
     public restApi: RestApiService
   ) {}
 
   ngOnInit() {
-    this.loadCurrencies()
+    this.loadCurrencies();
+    this.loadBalance();
   }
 
   loadCurrencies() {
-    this.symbols.forEach(symbol => {
+    this.Symbols.forEach(symbol => {
       this.pushCurrencyBySymbol(symbol);
+    });
+  }
+
+  loadBalance() {
+    return this.restApi.getBalance().subscribe((data: {}) => {
+      this.Balance = data;
     });
   }
 
@@ -31,5 +37,13 @@ export class CurrencyListComponent implements OnInit {
     this.restApi.getExchangeRate(symbol).subscribe((data: {}) => {
       this.Currencies.push(data);
     });
+  }
+
+  buy(symbol, amount) {
+    this.restApi.purchase(symbol, amount);
+  }
+
+  sell(symbol, amount) {
+    this.restApi.sell(symbol, amount);
   }
 }
