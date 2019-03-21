@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
 // Components
 import { CurrencyListComponent } from './currency-list/currency-list.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';

@@ -5,10 +5,6 @@ import { Balance } from '../shared/balance';
 import { Observable, interval, timer} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Transaction } from './transaction';
-import {concatMap} from 'rxjs-compat/operator/concatMap';
-import {flatMap} from 'tslint/lib/utils';
-import {exhaustMap} from 'rxjs-compat/operator/exhaustMap';
-import {switchMap} from 'rxjs-compat/operator/switchMap';
 
 @Injectable({
   providedIn: 'root'
@@ -51,26 +47,18 @@ export class RestApiService {
     );
   }
 
-  purchase(symbol, amount) {
-    const data = JSON.stringify({
-      'symbol': symbol,
-      'amount': amount
-    });
-
-    return this.http.post<Currency>(this.apiURL + '/account/purchase', data, this.httpOptions)
+  purchase(currency) {
+    const currencyInJSON = JSON.stringify(currency);
+    return this.http.post<Currency>(this.apiURL + '/account/purchase', currencyInJSON, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
-  sell(symbol, amount) {
-    const data = JSON.stringify({
-      'symbol': symbol,
-      'amount': amount
-    });
-
-    return this.http.post<Currency>(this.apiURL + '/account/sell', data, this.httpOptions)
+  sell(currency) {
+    const currencyInJSON = JSON.stringify(currency);
+    return this.http.post<Currency>(this.apiURL + '/account/sell', currencyInJSON, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

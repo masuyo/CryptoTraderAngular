@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { RestApiService } from '../shared/rest-api.service';
 import {Currency} from '../shared/currency';
 import {Balance} from '../shared/balance';
 import {interval, Subject} from 'rxjs';
 import {flatMap, startWith, merge} from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,13 +15,18 @@ import {flatMap, startWith, merge} from 'rxjs/operators';
 export class CurrencyListComponent implements OnInit {
 
   Currencies: Currency[] = [];
-  Symbols: any = ['btc', 'xrp', 'eth'];
+  Symbols: any = ['BTC', 'XRP', 'ETH'];
+  TransactionTypes: any = ['Vétel', 'Eladás'];
   Balance: Balance;
   onClickRefresh = new Subject();
   subscriber;
 
+  transactionType = { type: 'Vétel' };
+  currencyDetails = { symbol: '', amount: ''}
+
   constructor(
-    public restApi: RestApiService
+    public restApi: RestApiService,
+    public router: Router
   ) {}
 
   ngOnInit() {
@@ -55,13 +61,22 @@ export class CurrencyListComponent implements OnInit {
       .subscribe(currency => this.Currencies.push(currency));
   }
 
-  buyClick(symbol, amount) {
-    this.restApi.purchase(symbol, amount);
-    this.doClickRefresh();
-  }
-
-  sellClick(symbol, amount) {
-    this.restApi.sell(symbol, amount);
+  doTransaction(dataCurrency) {
+    //console.log('tranzakció');
+    console.log(this.transactionType.type);
+    console.log(this.currencyDetails.symbol + ', ' +  this.currencyDetails.amount);
+    switch (this.transactionType.type) {
+      case this.TransactionTypes[0]:
+        this.restApi.purchase(this.currencyDetails).subscribe();
+        break;
+      case this.TransactionTypes[1]:
+        this.restApi.sell(this.currencyDetails).subscribe(() => {
+          this.router.navigate(['/currencies-list']);
+        });
+        break;
+      default:
+        break;
+    }
     this.doClickRefresh();
   }
 
