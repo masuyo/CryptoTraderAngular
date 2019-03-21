@@ -61,18 +61,13 @@ export class CurrencyListComponent implements OnInit {
       .subscribe(currency => this.Currencies.push(currency));
   }
 
-  doTransaction(dataCurrency) {
-    //console.log('tranzakció');
-    console.log(this.transactionType.type);
-    console.log(this.currencyDetails.symbol + ', ' +  this.currencyDetails.amount);
+  doTransaction() {
     switch (this.transactionType.type) {
       case this.TransactionTypes[0]:
         this.restApi.purchase(this.currencyDetails).subscribe();
         break;
       case this.TransactionTypes[1]:
-        this.restApi.sell(this.currencyDetails).subscribe(() => {
-          this.router.navigate(['/currencies-list']);
-        });
+        this.restApi.sell(this.currencyDetails).subscribe();
         break;
       default:
         break;
