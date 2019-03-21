@@ -3,9 +3,7 @@ import { RestApiService } from '../shared/rest-api.service';
 import {Currency} from '../shared/currency';
 import {Balance} from '../shared/balance';
 import {interval} from 'rxjs';
-import {concatMap} from 'rxjs-compat/operator/concatMap';
 import {flatMap, startWith} from 'rxjs/operators';
-import {switchMap} from 'rxjs-compat/operator/switchMap';
 
 @Component({
   selector: 'app-currency-list',
@@ -44,6 +42,7 @@ export class CurrencyListComponent implements OnInit {
   pushCurrencyBySymbol(symbol) {
     interval(10000)
       .pipe(
+        startWith(0),
         flatMap(() => this.restApi.getExchangeRate(symbol))
       )
       .subscribe(currency => this.Currencies.push(currency));
