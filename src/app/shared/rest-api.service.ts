@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Currency } from '../shared/currency';
 import { Balance } from '../shared/balance';
-import { Observable, throwError } from 'rxjs';
+import { Observable, interval, timer} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Transaction } from './transaction';
+import {concatMap} from 'rxjs-compat/operator/concatMap';
+import {flatMap} from 'tslint/lib/utils';
+import {exhaustMap} from 'rxjs-compat/operator/exhaustMap';
+import {switchMap} from 'rxjs-compat/operator/switchMap';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +43,8 @@ export class RestApiService {
     );
   }
 
-  getHistory(): Observable<Transaction> {
-    return this.http.get<Transaction>(this.apiURL + '/account/history', this.httpOptions)
+  getHistory(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(this.apiURL + '/account/history', this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

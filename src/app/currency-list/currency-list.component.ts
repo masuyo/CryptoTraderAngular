@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../shared/rest-api.service';
+import {Currency} from '../shared/currency';
+import {Balance} from '../shared/balance';
+import {interval} from 'rxjs';
+import {concatMap} from 'rxjs-compat/operator/concatMap';
+import {flatMap, startWith} from 'rxjs/operators';
+import {switchMap} from 'rxjs-compat/operator/switchMap';
 
 @Component({
   selector: 'app-currency-list',
@@ -8,9 +14,10 @@ import { RestApiService } from '../shared/rest-api.service';
 })
 export class CurrencyListComponent implements OnInit {
 
-  Currencies: any = [];
+  Currencies: Currency[] = [];
   Symbols: any = ['btc', 'xrp', 'eth'];
-  Balance: any;
+  Balance: Balance;
+  subscriber;
 
   constructor(
     public restApi: RestApiService
@@ -22,21 +29,24 @@ export class CurrencyListComponent implements OnInit {
   }
 
   loadCurrencies() {
+    this.clearCurrencies();
     this.Symbols.forEach(symbol => {
       this.pushCurrencyBySymbol(symbol);
     });
+    return null;
   }
 
   loadBalance() {
-    return this.restApi.getBalance().subscribe((data: {}) => {
-      this.Balance = data;
-    });
+    return this.restApi.getBalance()
+      .subscribe(balance => this.Balance = balance);
   }
 
   pushCurrencyBySymbol(symbol) {
-    this.restApi.getExchangeRate(symbol).subscribe((data: {}) => {
-      this.Currencies.push(data);
-    });
+    interval(10000)
+      .pipe(
+        flatMap(() => this.restApi.getExchangeRate(symbol))
+      )
+      .subscribe(currency => this.Currencies.push(currency));
   }
 
   buy(symbol, amount) {
@@ -46,4 +56,9 @@ export class CurrencyListComponent implements OnInit {
   sell(symbol, amount) {
     this.restApi.sell(symbol, amount);
   }
+
+  clearCurrencies() {
+    this.Currencies = [];
+  }
+
 }

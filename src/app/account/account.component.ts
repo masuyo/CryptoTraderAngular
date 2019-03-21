@@ -19,11 +19,10 @@ export class AccountComponent implements OnInit {
   }
 
   resetAccount() {
-    if (window.confirm('Biztosan resetelni szeretnéd az accountod?')) {
+    if (window.confirm('Biztosan törölni szeretnéd a tranzakcióid?')) {
       this.restApi.reset().subscribe(() => {
         this.router.navigate(['/account']);
       });
     }
   }
-
 }
