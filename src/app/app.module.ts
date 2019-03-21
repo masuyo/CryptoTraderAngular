@@ -11,6 +11,7 @@ import { CurrencyListComponent } from './currency-list/currency-list.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { AccountComponent } from './account/account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CurrencyListComponent,
     TradeHistoryComponent,
     AccountComponent,
-    DashboardComponent
+    DashboardComponent,
+    TransactionComponent
   ],
   imports: [
     AppRoutingModule,

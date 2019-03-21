@@ -15,13 +15,13 @@ import { Router } from '@angular/router';
 export class CurrencyListComponent implements OnInit {
 
   Currencies: Currency[] = [];
-  Symbols: any = ['BTC', 'XRP', 'ETH'];
-  TransactionTypes: any = ['Vétel', 'Eladás'];
+  Symbols: CurrencyTypes[] = [CurrencyTypes.BTC, CurrencyTypes.ETH, CurrencyTypes.XRP];
+  TransactionTypes: TransactionType[] = [TransactionType.Purchase, TransactionType.Sell];
   Balance: Balance;
   onClickRefresh = new Subject();
   subscriber;
 
-  transactionType = { type: 'Vétel' };
+  transactionType = TransactionType.Purchase;
   currencyDetails = { symbol: '', amount: ''}
 
   constructor(
@@ -37,7 +37,7 @@ export class CurrencyListComponent implements OnInit {
   loadCurrencies() {
     this.clearCurrencies();
     this.Symbols.forEach(symbol => {
-      this.pushCurrencyBySymbol(symbol);
+      this.pushCurrencyBySymbol(symbol.toLowerCase());
     });
     return null;
   }
@@ -62,11 +62,11 @@ export class CurrencyListComponent implements OnInit {
   }
 
   doTransaction() {
-    switch (this.transactionType.type) {
-      case this.TransactionTypes[0]:
+    switch (this.transactionType) {
+      case TransactionType.Purchase:
         this.restApi.purchase(this.currencyDetails).subscribe();
         break;
-      case this.TransactionTypes[1]:
+      case TransactionType.Sell:
         this.restApi.sell(this.currencyDetails).subscribe();
         break;
       default:
@@ -83,4 +83,16 @@ export class CurrencyListComponent implements OnInit {
     this.Currencies = [];
   }
 
+}
+
+
+export enum TransactionType {
+  Purchase = 'Vétel',
+  Sell = 'Eladás',
+}
+
+export enum CurrencyTypes {
+  BTC = 'BTC',
+  XRP = 'XRP',
+  ETH = 'ETH',
 }
