@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {interval} from 'rxjs/internal/observable/interval';
-import {startWith, switchMap} from 'rxjs/operators';
-import { RestApiService } from './shared/rest-api.service';
 import { timer } from 'rxjs'
 
 @Component({

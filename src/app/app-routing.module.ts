@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CurrencyListComponent } from './currency-list/currency-list.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { AccountComponent } from './account/account.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const routes: Routes = [

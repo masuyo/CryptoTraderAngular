@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { CurrencyListComponent } from './currency-list/currency-list.component';
 import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { AccountComponent } from './account/account.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CurrencyListComponent,
     TradeHistoryComponent,
-    AccountComponent
+    AccountComponent,
+    DashboardComponent
   ],
   imports: [
     AppRoutingModule,

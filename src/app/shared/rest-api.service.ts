@@ -19,7 +19,8 @@ export class RestApiService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-Access-Token': '3D2ADF61-84D2-42A2-A715-A207B67A8CD8'
+      'X-Access-Token': '3D2ADF61-84D2-42A2-A715-A207B67A8CD8',
+      'Access-Control-Allow-Origin': '*'
     })
   }
 

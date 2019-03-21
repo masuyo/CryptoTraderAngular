@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { RestApiService } from '../shared/rest-api.service';
+import {RestApiService} from '../shared/rest-api.service';
 import {Currency} from '../shared/currency';
 import {Balance} from '../shared/balance';
 import {interval, Subject} from 'rxjs';
