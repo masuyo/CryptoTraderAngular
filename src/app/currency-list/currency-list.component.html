@@ -44,17 +44,19 @@
                 <h2 class="text-light">Tranzakció</h2>
                 <div class="row">
                     <div class="col-3">
-                        <select class="form-control" id="transactionTypeSelect" onchange="maxValue()"></select>
+                        <select class="form-control" id="transactionTypeSelect"></select>
                     </div>
                     <div class="col-3">
-                        <select class="form-control" id="currentSelect" onchange="maxValue()"></select>
+                        <select class="form-control">
+                          <option *ngFor="let symbol of Symbols" [value]="symbol">{{symbol}}</option>
+                        </select>
                     </div>
                     <div class="col-3">
                         <input class="form-control" id="transactionValue" min="0" placeholder="0" step="0.01"
                                type="number">
                     </div>
                     <div class="col-3">
-                        <button class="btn btn-primary btn-block" onclick="onClickTransaction()" type="button">Ok
+                        <button class="btn btn-primary btn-block" (click)="doClickRefresh()" type="button">Ok
                         </button>
                     </div>
                 </div>

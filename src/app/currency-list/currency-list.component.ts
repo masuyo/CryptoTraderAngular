@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../shared/rest-api.service';
 import {Currency} from '../shared/currency';
 import {Balance} from '../shared/balance';
-import {interval} from 'rxjs';
-import {flatMap, startWith} from 'rxjs/operators';
+import {interval, Subject} from 'rxjs';
+import {flatMap, startWith, merge} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-currency-list',
@@ -15,6 +16,7 @@ export class CurrencyListComponent implements OnInit {
   Currencies: Currency[] = [];
   Symbols: any = ['btc', 'xrp', 'eth'];
   Balance: Balance;
+  onClickRefresh = new Subject();
   subscriber;
 
   constructor(
@@ -35,7 +37,12 @@ export class CurrencyListComponent implements OnInit {
   }
 
   loadBalance() {
-    return this.restApi.getBalance()
+    interval(10000)
+      .pipe(
+        merge(this.onClickRefresh),
+        startWith(0),
+        flatMap(() => this.restApi.getBalance())
+      )
       .subscribe(balance => this.Balance = balance);
   }
 
@@ -48,12 +55,18 @@ export class CurrencyListComponent implements OnInit {
       .subscribe(currency => this.Currencies.push(currency));
   }
 
-  buy(symbol, amount) {
+  buyClick(symbol, amount) {
     this.restApi.purchase(symbol, amount);
+    this.doClickRefresh();
   }
 
-  sell(symbol, amount) {
+  sellClick(symbol, amount) {
     this.restApi.sell(symbol, amount);
+    this.doClickRefresh();
+  }
+
+  doClickRefresh() {
+    this.onClickRefresh.next('');
   }
 
   clearCurrencies() {
