@@ -22,7 +22,7 @@ export class CurrencyListComponent implements OnInit {
   subscriber;
 
   transactionType = TransactionType.Purchase;
-  currencyDetails = { symbol: '', amount: ''}
+  currencyDetails = { symbol: '', amount: ''};
 
   constructor(
     public restApi: RestApiService,
@@ -84,7 +84,6 @@ export class CurrencyListComponent implements OnInit {
   }
 
 }
-
 
 export enum TransactionType {
   Purchase = 'Vétel',

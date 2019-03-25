@@ -12,6 +12,7 @@ import { TradeHistoryComponent } from './trade-history/trade-history.component';
 import { AccountComponent } from './account/account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { CurrencyHistoryChartComponent } from './currency-history-chart/currency-history-chart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     TradeHistoryComponent,
     AccountComponent,
     DashboardComponent,
-    TransactionComponent
+    TransactionComponent,
+    CurrencyHistoryChartComponent
   ],
   imports: [
     AppRoutingModule,
