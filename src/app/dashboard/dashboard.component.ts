@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {RestApiService} from '../shared/rest-api.service';
+import { RestApiService } from '../shared/rest-api.service';
+import {interval} from 'rxjs';
+import {flatMap, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,18 +9,21 @@ import {RestApiService} from '../shared/rest-api.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  CurrencyHistory = [];
-  CurrencyChart = [];
+  EthLabels = [];
+  EthValues = [];
+  BtcLabels = [];
+  BtcValues = [];
+  XrpLabels = [];
+  XrpValues = [];
 
   constructor(
     public restApi: RestApiService
   ) { }
 
   ngOnInit() {
-    this.restApi.getExchangeRate('btc');
-
+    this.loadHistory('eth');
   }
 
-
-
+  loadHistory(symbol) {
+  }
 }

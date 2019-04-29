@@ -1,14 +1,14 @@
 <h2 class="text-light">Tranzakció</h2>
 <div class="row">
   <div class="col-3">
-    <select class="form-control form-group" [(ngModel)]="transactionType">
-      <option type="text" class="form-control" id="type" name="type" *ngFor="let type of TransactionTypes" [ngValue]="type">{{type}}</option>
-    </select>
+      <select class="form-control form-group" [(ngModel)]="transactionType">
+        <option type="text" class="form-control" id="type" name="type" *ngFor="let type of TransactionTypes" [ngValue]="type">{{type}}</option>
+      </select>
   </div>
   <div class="col-3 form-group">
-    <select class="form-control" [(ngModel)]="currencyDetails.symbol">
-      <option  type="text" class="form-control" id="symbol" name="symbol" *ngFor="let symbol of Symbols" [ngValue]="symbol">{{symbol}}</option>
-    </select>
+      <select class="form-control" [(ngModel)]="currencyDetails.symbol">
+        <option  type="text" class="form-control" id="symbol" name="symbol" *ngFor="let symbol of Symbols" [ngValue]="symbol">{{symbol}}</option>
+      </select>
   </div>
   <div class="col-3 form-group">
     <input class="form-control" [(ngModel)]="currencyDetails.amount" id="amount" name="amount" min="0" placeholder="0" step="0.01" type="number">

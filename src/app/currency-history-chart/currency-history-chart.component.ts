@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -8,7 +8,10 @@ import { Chart } from 'chart.js';
 })
 export class CurrencyHistoryChartComponent implements OnInit {
 
-  @Input() currencyHistory = [];
+  @Input() labels = [];
+  @Input() values = [];
+  @Input() symbol = '';
+  chart = [];
 
   constructor() { }
 
@@ -17,29 +20,20 @@ export class CurrencyHistoryChartComponent implements OnInit {
   }
 
   loadChart() {
-    const chart = new Chart('canvas', {
+    this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: history,
+        labels: this.labels,
         datasets: [
           {
-            data: history,
-            fill: false
+            label: this.symbol,
+            data: this.values,
+            fill: false,
+            backgroundColor: 'rgba(100, 159, 64, 0.2)',
+            borderColor: 'rgba(100, 99, 132, 1)',
+            borderWidth: 1
           }
         ]
-      },
-      options: {
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [{
-            display: true
-          }],
-          yAxes: [{
-            display: true
-          }],
-        }
       }
     });
   }
